@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.htc.upm.vive.openxr": "https://github.com/ViveSoftware/VIVE-OpenXR.git?path=com.htc.upm.vive.openxr",
     "com.unity.ai.navigation": "2.0.6",
     "com.unity.collab-proxy": "2.7.1",
     "com.unity.ide.rider": "3.0.31",
@@ -11,6 +12,9 @@
     "com.unity.timeline": "1.8.7",
     "com.unity.ugui": "2.0.0",
     "com.unity.visualscripting": "1.9.5",
+    "com.unity.xr.interaction.toolkit": "3.0.8",
+    "com.unity.xr.management": "4.5.1",
+    "com.unity.xr.openxr": "1.14.3",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
