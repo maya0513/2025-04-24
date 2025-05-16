@@ -529,6 +529,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 138972315}
     m_Modifications:
+    - target: {fileID: 2117862787899067868, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 875f58d2e0c01b240822f5b29d844c75, type: 2}
     - target: {fileID: 2346236693461991987, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -573,10 +577,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2978243140760853327, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 875f58d2e0c01b240822f5b29d844c75, type: 2}
     - target: {fileID: 3153735228233242761, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
       propertyPath: m_Name
       value: WhellChair
       objectReference: {fileID: 0}
+    - target: {fileID: 3514123872764295516, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 05eb5e08e8f3787488327901ec50771f, type: 2}
     - target: {fileID: 4683283521051438201, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.33062768
@@ -5013,7 +5025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6232745470614056090, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6501755809687671949, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_IsActive
