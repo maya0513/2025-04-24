@@ -613,6 +613,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8662941202865153870, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
+      propertyPath: m_Name
+      value: Left_Wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033706703351619583, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
+      propertyPath: m_Name
+      value: Right_Wheel
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -623,9 +631,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3153735228233242761, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1243563121}
-    - targetCorrespondingSourceObject: {fileID: 3153735228233242761, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1243563120}
     - targetCorrespondingSourceObject: {fileID: 9033706703351619583, guid: d2e8c4942af99c143a3f6e55a6c91c7f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 381118535}
@@ -2008,48 +2013,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &1243563120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243563113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb227a9570ab1d5469fef3e6b1a6a056, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerRigidbody: {fileID: 1243563119}
-  leftController: {fileID: 2004014061}
-  rightController: {fileID: 2004014060}
-  leftGripAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Left Grip
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: e6fa4f52-c4d6-4e69-bc03-53d68ab22f80
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 638436578066482641, guid: 10b1da4cb4e05054988fc0e8a47aab4a, type: 3}
-  rightGripAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Right Grip
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 3f303146-5253-4ece-8330-161070837a68
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -402326628567559266, guid: 10b1da4cb4e05054988fc0e8a47aab4a, type: 3}
-  moveForceMultiplier: 10
-  turnTorqueMultiplier: 5
-  maxMoveSpeed: 2
 --- !u!114 &1243563121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2076,9 +2039,9 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 2883175194488637904, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
+    m_Reference: {fileID: 638436578066482641, guid: 10b1da4cb4e05054988fc0e8a47aab4a, type: 3}
   rightGripAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Right Grip
       m_Type: 0
@@ -2088,7 +2051,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: -402326628567559266, guid: 10b1da4cb4e05054988fc0e8a47aab4a, type: 3}
   moveForceMultiplier: 10
   turnTorqueMultiplier: 5
   maxMoveSpeed: 2
@@ -4965,11 +4928,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1178791450436251564, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_CameraYOffset
-      value: 0.7
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 1178791450436251564, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_RequestedTrackingOriginMode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Name
@@ -5025,7 +4988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6232745470614056090, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6501755809687671949, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_IsActive
