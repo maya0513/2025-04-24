@@ -5,19 +5,19 @@ using UnityEngine;
 public class WheelchairPhysicsController : MonoBehaviour
 {
     [Header("Wheel Colliders")]
-   
+
     public WheelCollider leftWheelCollider;
-   
+
     public WheelCollider rightWheelCollider;
 
     [Header("Movement Parameters")]
-   
+
     public float maxMotorTorque = 100f;
-   
+
     public float maxBrakeTorque = 200f;
 
-   
-   
+
+
     public Vector3 centerOfMassOffset = new Vector3(0f, -0.2f, 0.05f); // Yを低く、Zをわずかに前方に
 
     // 内部状態変数
@@ -42,8 +42,7 @@ public class WheelchairPhysicsController : MonoBehaviour
         wheelchairRigidbody.centerOfMass = centerOfMassOffset;
 
         // WheelColliderの基本的な検証
-        if (leftWheelCollider == null |
-| rightWheelCollider == null)
+        if (leftWheelCollider == null || rightWheelCollider == null)
         {
             Debug.LogError("WheelchairPhysicsController: WheelColliderが割り当てられていません。", this.gameObject);
             this.enabled = false;
@@ -69,15 +68,13 @@ public class WheelchairPhysicsController : MonoBehaviour
     // FixedUpdateは物理演算の更新と同期して呼び出されます
     void FixedUpdate()
     {
-        if (leftWheelCollider == null |
-| rightWheelCollider == null |
-| wheelchairRigidbody == null) return;
+        if (leftWheelCollider == null || rightWheelCollider == null || wheelchairRigidbody == null) return;
 
         // モータートルクの適用
         // ブレーキが適用されている場合はモータートルクをゼロにするか、あるいはより複雑なロジックを実装することも可能
-        float actualLeftMotorTorque = (currentLeftBrakeInput > 0.01f)? 0f : currentLeftMotorInput * maxMotorTorque;
-        float actualRightMotorTorque = (currentRightBrakeInput > 0.01f)? 0f : currentRightMotorInput * maxMotorTorque;
-        
+        float actualLeftMotorTorque = (currentLeftBrakeInput > 0.01f) ? 0f : currentLeftMotorInput * maxMotorTorque;
+        float actualRightMotorTorque = (currentRightBrakeInput > 0.01f) ? 0f : currentRightMotorInput * maxMotorTorque;
+
         leftWheelCollider.motorTorque = actualLeftMotorTorque;
         rightWheelCollider.motorTorque = actualRightMotorTorque;
 
@@ -100,7 +97,8 @@ public class WheelchairPhysicsController : MonoBehaviour
         Gizmos.DrawSphere(transform.TransformPoint(centerOfMassOffset), 0.1f);
 
         // エディタ実行中でなくても質量中心を更新（エディタ上での調整のため）
-        if (!Application.isPlaying) {
+        if (!Application.isPlaying)
+        {
             wheelchairRigidbody.centerOfMass = centerOfMassOffset;
         }
     }

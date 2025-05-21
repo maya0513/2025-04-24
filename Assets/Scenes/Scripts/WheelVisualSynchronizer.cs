@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class WheelVisualSynchronizer : MonoBehaviour
 {
-   
+
     public WheelCollider wheelCollider;
 
-   
+
     public Transform wheelVisualTransform;
 
     void Start()
@@ -31,8 +31,7 @@ public class WheelVisualSynchronizer : MonoBehaviour
     // これは、物理に基づいてビジュアルを更新するのに理想的な場所です。
     void LateUpdate()
     {
-        if (wheelCollider == null |
-| wheelVisualTransform == null) return;
+        if (wheelCollider == null || wheelVisualTransform == null) return;
 
         Vector3 worldPosition;
         Quaternion worldRotation;
