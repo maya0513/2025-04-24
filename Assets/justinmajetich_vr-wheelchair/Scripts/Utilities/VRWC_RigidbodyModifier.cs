@@ -12,13 +12,13 @@ public class VRWC_RigidbodyModifier : MonoBehaviour
     // 対象となるRigidbodyコンポーネント
     Rigidbody rb;
 
-    [Header("最大角速度")]
+    [Header("Max Angular Velocity")]
     // Rigidbodyの角速度の上限値設定
     // 車輪が異常に高速回転することを防ぎ、安定した物理演算を保証します
     [SerializeField, Range(0, 100), Tooltip("Rigidbodyの角速度の上限値。Unityのデフォルトは7です")]
     float maxAngularVelocity = 7f;
 
-    [Header("重心位置")]
+    [Header("Center of Mass")]
     // カスタム重心を使用するかどうかのフラグ
     // チェックを外すと重心が自動計算されます。カスタム重心を設定すると、自動再計算は行われなくなります
     [SerializeField, Tooltip("チェックを外すと重心が自動計算されます。カスタム重心を設定すると、自動再計算は行われなくなります")]
