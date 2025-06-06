@@ -1777,15 +1777,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3355997933681941813, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: maxAngularVelocity
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3355997933869472930, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: maxAngularVelocity
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3355997933869472932, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: m_Constraints
-      value: 0
+      value: 96
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355997933869472953, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3355997934018186046, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: m_Constraints
@@ -1793,7 +1797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3355997934018186047, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: maxAngularVelocity
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3355997934018186047, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: visualizeCenterOfMass
@@ -1801,11 +1805,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3355997934027076920, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: maxAngularVelocity
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3355997934027076922, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: m_Constraints
-      value: 0
+      value: 96
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355997934027076927, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3355997934270379108, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1861,7 +1869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3355997935213568943, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: maxAngularVelocity
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3355997934270379111, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
@@ -1872,6 +1880,9 @@ PrefabInstance:
     - {fileID: 3355997933788464947, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3355997933869472956, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 1975959817}
     - targetCorrespondingSourceObject: {fileID: 3355997933869472956, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1975959816}
@@ -1890,6 +1901,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3355997933869472956, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1975959811}
+    - targetCorrespondingSourceObject: {fileID: 3355997934027076914, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 1169485359}
     - targetCorrespondingSourceObject: {fileID: 3355997934027076914, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1169485358}
@@ -1989,7 +2003,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169485345}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 592f488e350135340b0cf3ad3a0b041e, type: 3}
   m_Name: 
@@ -1997,7 +2011,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 3127728407676174906}
   m_Colliders: []
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -2060,6 +2074,45 @@ MonoBehaviour:
   stationaryThreshold: 0.05
   label1: {fileID: 0}
   label2: {fileID: 0}
+--- !u!146 &1169485359
+WheelCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169485345}
+  serializedVersion: 2
+  m_Center: {x: 0.04, y: 0.1524, z: 0}
+  m_Radius: 0.3048
+  m_SuspensionSpring:
+    spring: 35000
+    damper: 4500
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.3
+  m_ForceAppPointDistance: 0
+  m_Mass: 20
+  m_WheelDampingRate: 0.25
+  m_ForwardFriction:
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 1
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 1
+  m_SidewaysFriction:
+    m_ExtremumSlip: 0.2
+    m_ExtremumValue: 1
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 0.75
+    m_Stiffness: 1
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_Enabled: 0
+  m_ProvidesContacts: 0
 --- !u!1 &1202312658
 GameObject:
   m_ObjectHideFlags: 0
@@ -3291,7 +3344,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975959803}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 592f488e350135340b0cf3ad3a0b041e, type: 3}
   m_Name: 
@@ -3299,7 +3352,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 3127728407676174906}
   m_Colliders: []
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -3362,6 +3415,45 @@ MonoBehaviour:
   stationaryThreshold: 0.05
   label1: {fileID: 0}
   label2: {fileID: 0}
+--- !u!146 &1975959817
+WheelCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975959803}
+  serializedVersion: 2
+  m_Center: {x: 0.04, y: 0.1524, z: 0}
+  m_Radius: 0.3048
+  m_SuspensionSpring:
+    spring: 35000
+    damper: 4500
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.3
+  m_ForceAppPointDistance: 0
+  m_Mass: 20
+  m_WheelDampingRate: 0.25
+  m_ForwardFriction:
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 1
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 1
+  m_SidewaysFriction:
+    m_ExtremumSlip: 0.2
+    m_ExtremumValue: 1
+    m_AsymptoteSlip: 0.5
+    m_AsymptoteValue: 0.75
+    m_Stiffness: 1
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_Enabled: 0
+  m_ProvidesContacts: 0
 --- !u!1 &196977305468683332
 GameObject:
   m_ObjectHideFlags: 0
@@ -5258,7 +5350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.12
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.z
