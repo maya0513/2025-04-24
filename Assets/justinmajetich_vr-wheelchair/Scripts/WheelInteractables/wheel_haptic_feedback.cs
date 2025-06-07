@@ -25,6 +25,14 @@ public class WheelHapticFeedback : MonoBehaviour
     {
         wheelRigidbody = rigidbody;
         wheelTransform = transform;
+
+        // Rigidbodyの新形式プロパティを確認（必要に応じて設定）
+        if (wheelRigidbody != null)
+        {
+            // 車輪の物理設定を最適化
+            wheelRigidbody.linearDamping = Mathf.Max(0f, wheelRigidbody.linearDamping);
+            wheelRigidbody.angularDamping = Mathf.Max(0f, wheelRigidbody.angularDamping);
+        }
     }
 
     // 触覚フィードバック開始
@@ -88,7 +96,7 @@ public class WheelHapticFeedback : MonoBehaviour
 
         Vector3 worldAngularVelocity = wheelRigidbody.angularVelocity;
         Vector3 localAngularVelocity = wheelTransform.InverseTransformDirection(worldAngularVelocity);
-        
+
         // X軸の回転のみを使用
         return new Vector3(localAngularVelocity.x, 0f, 0f);
     }
@@ -114,7 +122,7 @@ public class WheelHapticFeedback : MonoBehaviour
     float CalculateImpulseAmplitude(Vector3 acceleration)
     {
         float impulseAmplitude = Mathf.Abs(acceleration.x);
-        
+
         if (impulseAmplitude <= minImpulseThreshold) return 0f;
 
         return Remap(impulseAmplitude, minImpulseThreshold, maxImpulseValue, 0f, 1f);

@@ -80,10 +80,41 @@ public class WheelGrabPointManager : MonoBehaviour
     void SetupGrabPointPosition(IXRSelectInteractor interactor)
     {
         Transform interactorTransform = (interactor as MonoBehaviour)?.transform;
-        if (interactorTransform != null && grabPoint != null)
+        if (interactorTransform != null && grabPoint != null && wheelRigidbody != null)
         {
-            grabPoint.transform.position = interactorTransform.position;
+            // インタラクターの位置を車輪の表面に投影
+            Vector3 wheelCenter = wheelRigidbody.transform.position;
+            Vector3 interactorPosition = interactorTransform.position;
+
+            // 車輪の中心からインタラクターへのベクトル
+            Vector3 direction = (interactorPosition - wheelCenter).normalized;
+
+            // 車輪の半径を取得（SphereColliderから）
+            float wheelRadius = GetWheelRadius();
+
+            // 車輪の表面上の点を計算
+            Vector3 surfacePoint = wheelCenter + direction * wheelRadius;
+
+            grabPoint.transform.position = surfacePoint;
+
+            // グラブポイントの向きを車輪に合わせる
+            grabPoint.transform.rotation = wheelRigidbody.transform.rotation;
         }
+    }
+
+    // 車輪の半径を取得
+    float GetWheelRadius()
+    {
+        if (wheelRigidbody == null) return 0.5f;
+
+        SphereCollider sphereCollider = wheelRigidbody.GetComponent<SphereCollider>();
+        if (sphereCollider != null)
+        {
+            return sphereCollider.radius * wheelRigidbody.transform.localScale.x;
+        }
+
+        // フォールバック値
+        return 0.5f;
     }
 
     // グラブポイント物理設定
@@ -96,6 +127,26 @@ public class WheelGrabPointManager : MonoBehaviour
         {
             grabPointRb.mass = 0.1f;
             grabPointRb.useGravity = false;
+            grabPointRb.isKinematic = false;
+            // 新形式のドラッグ設定
+            grabPointRb.linearDamping = 0f;
+            grabPointRb.angularDamping = 0f;
+        }
+
+        // XRGrabInteractableの設定
+        XRGrabInteractable grabInteractable = grabPoint.GetComponent<XRGrabInteractable>();
+        if (grabInteractable != null)
+        {
+            // 移動タイプを設定（重要：これが逆回転の原因）
+            grabInteractable.movementType = XRBaseInteractable.MovementType.VelocityTracking;
+            // 速度追跡設定
+            grabInteractable.velocityDamping = 1f;
+            grabInteractable.velocityScale = 1f;
+            grabInteractable.angularVelocityDamping = 1f;
+            grabInteractable.angularVelocityScale = 1f;
+            // 投げる動作を無効化
+            grabInteractable.throwOnDetach = false;
+            grabInteractable.forceGravityOnDetach = false;
         }
     }
 
@@ -112,6 +163,14 @@ public class WheelGrabPointManager : MonoBehaviour
             joint.breakTorque = Mathf.Infinity;
             joint.enableCollision = false;
             joint.enablePreprocessing = false;
+
+            // 重要：アンカーの自動設定を無効化
+            joint.autoConfigureConnectedAnchor = false;
+
+            // アンカーポイントを明示的に設定
+            Vector3 localAnchor = wheelRigidbody.transform.InverseTransformPoint(grabPoint.transform.position);
+            joint.connectedAnchor = localAnchor;
+            joint.anchor = Vector3.zero;
         }
     }
 
