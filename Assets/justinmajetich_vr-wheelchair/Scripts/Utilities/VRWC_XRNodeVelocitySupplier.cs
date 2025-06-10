@@ -1,19 +1,17 @@
 using UnityEngine;
 using UnityEngine.XR;
 
-/// <summary>
-/// Supplies the current velocity of a specific XRNode. This class is meant to supplement the ActionBasedController by providing a XR Controller with velocity input.
-/// </summary>
+// 特定のXRNodeの現在の速度を提供します。このクラスは、XRコントローラーに速度入力を提供することで、ActionBasedControllerを補完することを目的としています。
+
 public class VRWC_XRNodeVelocitySupplier : MonoBehaviour
 {
-    [SerializeField, Tooltip("The XRNode for which velocity should be tracked. This should be LeftHand or RightHand")]
+    [SerializeField, Tooltip("速度を追跡するXRNode。これはLeftHandまたはRightHandである必要があります。")]
     XRNode trackedNode;
 
     Vector3 _velocity = Vector3.zero;
 
-    /// <summary>
-    /// Most recently tracked velocity of attached transform. Read only.;
-    /// </summary>
+    // アタッチされたトランスフォームの最後に追跡された速度。読み取り専用。
+
     public Vector3 velocity { get => _velocity; }
 
     private void Start()

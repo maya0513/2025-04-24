@@ -1,12 +1,11 @@
 using UnityEngine;
 
-/// <summary>
-/// Modifies a transform's position and rotation to maintain a constant offset with a target transform.
-/// Useful for syncing the position/rotation of two objects which are siblings within the hierarchy.
-/// </summary>
+// ターゲットトランスフォームとの一定のオフセットを維持するために、トランスフォームの位置と回転を変更します。
+// 階層内で兄弟である 2 つのオブジェクトの位置/回転を同期するのに役立ちます
+
 public class VRWC_FollowTransform : MonoBehaviour
 {
-    [Tooltip("Transform of the rigidbody to follow.")]
+    [Tooltip("追従するリジッドボディの変換")]
     public Transform target;
     Vector3 offset;
 
