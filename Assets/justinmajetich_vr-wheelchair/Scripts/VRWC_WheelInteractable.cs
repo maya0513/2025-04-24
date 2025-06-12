@@ -9,7 +9,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 // XRBaseInteractableを継承したVRWC_WheelInteractableは、動的グラブポイント、ブレーキング、自動選択解除を処理する独自の動作を提供します。
 
-public class WheelInteractable : XRBaseInteractable
+public class VRWC_WheelInteractable : XRBaseInteractable
 {
     Rigidbody m_Rigidbody;
 
