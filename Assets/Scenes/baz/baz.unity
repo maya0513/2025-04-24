@@ -659,6 +659,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3355997934270379111, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
+      propertyPath: m_CameraGameObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355997934270379111, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
+      propertyPath: m_CameraFloorOffsetObject
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3355997934270379128, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
       propertyPath: m_Name
       value: VRWC_WheelchairRig
@@ -668,15 +676,15 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3355997934270379111, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
     - {fileID: 3355997934270379110, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
-    - {fileID: 3355997934027076923, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
-    - {fileID: 3355997933869472933, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 3355997934270379111, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
     m_RemovedGameObjects:
     - {fileID: 3355997933788464947, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
     m_AddedGameObjects: []
@@ -700,6 +708,10 @@ PrefabInstance:
       propertyPath: m_CameraYOffset
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1178791450436251564, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_OriginBaseGameObject
+      value: 
+      objectReference: {fileID: 1423701505}
     - target: {fileID: 1178791450436251564, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_RequestedTrackingOriginMode
       value: 1
@@ -1149,6 +1161,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1423701505 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 463800041}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1427176276 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
