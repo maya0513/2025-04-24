@@ -1,11 +1,15 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 // XRBaseInteractableを継承したVRWC_WheelInteractableは、動的グラブポイント、ブレーキング、自動選択解除を処理する独自の動作を提供します。
 
-public class VRWC_WheelInteractable : UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable
+public class WheelInteractable : XRBaseInteractable
 {
     Rigidbody m_Rigidbody;
 
@@ -36,10 +40,11 @@ public class VRWC_WheelInteractable : UnityEngine.XR.Interaction.Toolkit.Interac
     {
         base.OnSelectEntered(eventArgs);
 
-        UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor = eventArgs.interactor;
+        // XRI v3ではinteractorObjectを使用
+        IXRSelectInteractor interactor = eventArgs.interactorObject;
 
         // このホイールオブジェクトとの選択を強制的にキャンセル
-        interactionManager.CancelInteractableSelection(this);
+        interactionManager.CancelInteractableSelection(this as IXRSelectInteractable);
 
         SpawnGrabPoint(interactor);
 
@@ -55,12 +60,16 @@ public class VRWC_WheelInteractable : UnityEngine.XR.Interaction.Toolkit.Interac
     // ホイールのリジッドボディとの物理インタラクションを仲介するグラブポイントを生成します。この「グラブ
     // ポイント」にはXRGrabInteractableコンポーネントとリジッドボディが含まれています。Fixed Jointを使用してホイールに結合されます。
     // <param name="interactor">選択を行っているインタラクター。</param>
-    void SpawnGrabPoint(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
+    void SpawnGrabPoint(IXRSelectInteractor interactor)
     {
         // アクティブなグラブポイントがある場合、選択をキャンセル
         if (grabPoint)
         {
-            interactionManager.CancelInteractableSelection(grabPoint.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>());
+            var grabInteractable = grabPoint.GetComponent<XRGrabInteractable>();
+            if (grabInteractable != null)
+            {
+                interactionManager.CancelInteractableSelection(grabInteractable as IXRSelectInteractable);
+            }
         }
 
         // インタラクターの位置に新しいグラブポイントをインスタンス化
@@ -72,12 +81,17 @@ public class VRWC_WheelInteractable : UnityEngine.XR.Interaction.Toolkit.Interac
         grabPoint.GetComponent<FixedJoint>().connectedBody = GetComponent<Rigidbody>();
 
         // 現在のインタラクターと新しいグラブポイント間の選択を強制
-        interactionManager.ForceSelect(interactor, grabPoint.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>());
+        var grabPointInteractable = grabPoint.GetComponent<XRGrabInteractable>();
+        if (grabPointInteractable != null)
+        {
+            // XRI v3ではSelectEnterを使用
+            interactionManager.SelectEnter(interactor, grabPointInteractable as IXRSelectInteractable);
+        }
     }
 
-    IEnumerator BrakeAssist(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
+    IEnumerator BrakeAssist(IXRSelectInteractor interactor)
     {
-        VRWC_XRNodeVelocitySupplier interactorVelocity = interactor.GetComponent<VRWC_XRNodeVelocitySupplier>();
+        VRWC_XRNodeVelocitySupplier interactorVelocity = interactor.transform.GetComponent<VRWC_XRNodeVelocitySupplier>();
 
         while (grabPoint)
         {
@@ -93,7 +107,7 @@ public class VRWC_WheelInteractable : UnityEngine.XR.Interaction.Toolkit.Interac
         }
     }
 
-    IEnumerator MonitorDetachDistance(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
+    IEnumerator MonitorDetachDistance(IXRSelectInteractor interactor)
     {
         // このホイールにアクティブなグラブポイントがある間
         while (grabPoint)
@@ -108,12 +122,13 @@ public class VRWC_WheelInteractable : UnityEngine.XR.Interaction.Toolkit.Interac
         }
     }
 
-    IEnumerator SendHapticFeedback(UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
+    IEnumerator SendHapticFeedback(IXRSelectInteractor interactor)
     {
         // コルーチンの反復間隔（秒）
         float runInterval = 0.1f;
 
-        ActionBasedController controller = interactor.GetComponent<ActionBasedController>();
+        // インタラクターからInputDeviceを取得
+        InputDevice device = GetInputDeviceFromInteractor(interactor);
 
         Vector3 lastAngularVelocity = new Vector3(transform.InverseTransformDirection(m_Rigidbody.angularVelocity).x, 0f, 0f);
 
@@ -131,7 +146,19 @@ public class VRWC_WheelInteractable : UnityEngine.XR.Interaction.Toolkit.Interac
                 {
                     float remappedImpulseAmplitude = Remap(impulseAmplitude, 1.5f, 40f, 0f, 1f);
 
-                    controller.SendHapticImpulse(remappedImpulseAmplitude, runInterval * 2f);
+                    // InputDevice.SendHapticImpulseを使用してハプティクスを送信
+                    if (device.isValid)
+                    {
+                        HapticCapabilities capabilities;
+                        if (device.TryGetHapticCapabilities(out capabilities))
+                        {
+                            if (capabilities.supportsImpulse)
+                            {
+                                uint channel = 0;
+                                device.SendHapticImpulse(channel, remappedImpulseAmplitude, runInterval * 2f);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -140,9 +167,50 @@ public class VRWC_WheelInteractable : UnityEngine.XR.Interaction.Toolkit.Interac
         }
     }
 
+    // インタラクターから適切なInputDeviceを取得するヘルパーメソッド
+    InputDevice GetInputDeviceFromInteractor(IXRSelectInteractor interactor)
+    {
+        // インタラクターのTransformの名前や位置から左右を判別
+        string interactorName = interactor.transform.name.ToLower();
+
+        InputDeviceCharacteristics desiredCharacteristics = InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Controller;
+
+        if (interactorName.Contains("left"))
+        {
+            desiredCharacteristics |= InputDeviceCharacteristics.Left;
+        }
+        else if (interactorName.Contains("right"))
+        {
+            desiredCharacteristics |= InputDeviceCharacteristics.Right;
+        }
+        else
+        {
+            // 名前から判別できない場合は、X座標の位置から推測
+            // 通常、左手は負のX座標、右手は正のX座標にある
+            if (interactor.transform.localPosition.x < 0)
+            {
+                desiredCharacteristics |= InputDeviceCharacteristics.Left;
+            }
+            else
+            {
+                desiredCharacteristics |= InputDeviceCharacteristics.Right;
+            }
+        }
+
+        // 指定された特性を持つデバイスを検索
+        List<InputDevice> devices = new List<InputDevice>();
+        InputDevices.GetDevicesWithCharacteristics(desiredCharacteristics, devices);
+
+        if (devices.Count > 0)
+        {
+            return devices[0];
+        }
+
+        // デバイスが見つからない場合は無効なデバイスを返す
+        return new InputDevice();
+    }
 
     // float値をある範囲から別の範囲に再マッピングするユーティリティメソッドです。
-
     float Remap(float value, float from1, float to1, float from2, float to2)
     {
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
