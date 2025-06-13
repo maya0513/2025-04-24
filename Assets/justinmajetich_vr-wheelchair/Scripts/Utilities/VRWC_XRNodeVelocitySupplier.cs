@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -17,6 +18,13 @@ public class VRWC_XRNodeVelocitySupplier : MonoBehaviour
     private void Start()
     {
         InputDevices.GetDeviceAtXRNode(trackedNode).TryGetFeatureValue(CommonUsages.deviceVelocity, out _velocity);
+        StartCoroutine(WaitForXRInitialization());
+    }
+
+    private IEnumerator WaitForXRInitialization()
+    {
+        yield return new WaitUntil(() => InputDevices.GetDeviceAtXRNode(trackedNode).isValid);
+        // 速度取得処理
     }
 
     void Update()

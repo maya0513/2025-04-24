@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a3f1c14ac8a5e43bea1d95249b161c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 1499766828}
   m_Colliders: []
   m_InteractionLayers:
     m_Bits: 4294967295
@@ -685,15 +685,17 @@ PrefabInstance:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 3355997934270379111, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
+    - {fileID: 3355997934027076923, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
+    - {fileID: 3355997933869472933, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
     m_RemovedGameObjects:
     - {fileID: 3355997933788464947, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3355997933869472956, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
-      insertIndex: 2
+      insertIndex: 1
       addedObject: {fileID: 188666284}
     - targetCorrespondingSourceObject: {fileID: 3355997934027076914, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
-      insertIndex: 2
+      insertIndex: 1
       addedObject: {fileID: 2136797960}
   m_SourcePrefab: {fileID: 100100000, guid: d04ad2de10bfe410b92adec059bc0154, type: 3}
 --- !u!1001 &463800041
@@ -1565,7 +1567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a3f1c14ac8a5e43bea1d95249b161c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 1499766828}
   m_Colliders: []
   m_InteractionLayers:
     m_Bits: 4294967295
@@ -1636,7 +1638,7 @@ SceneRoots:
   - {fileID: 1804798029}
   - {fileID: 1370112381}
   - {fileID: 1499766829}
-  - {fileID: 463800041}
   - {fileID: 2038294406}
   - {fileID: 543039893}
   - {fileID: 1043152566}
+  - {fileID: 463800041}

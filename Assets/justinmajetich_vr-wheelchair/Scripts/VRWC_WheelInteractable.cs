@@ -40,6 +40,9 @@ public class VRWC_WheelInteractable : XRBaseInteractable
     {
         base.OnSelectEntered(eventArgs);
 
+        // 短い遅延後にブレーキアシストを開始
+        StartCoroutine(DelayedBrakeAssist(eventArgs.interactorObject));
+
         // XRI v3ではinteractorObjectを使用
         IXRSelectInteractor interactor = eventArgs.interactorObject;
 
@@ -55,6 +58,12 @@ public class VRWC_WheelInteractable : XRBaseInteractable
         {
             StartCoroutine(SendHapticFeedback(interactor));
         }
+    }
+
+    private IEnumerator DelayedBrakeAssist(IXRSelectInteractor interactor)
+    {
+        yield return new WaitForSeconds(0.1f); // XRシステム安定化待ち
+        StartCoroutine(BrakeAssist(interactor));
     }
 
     // ホイールのリジッドボディとの物理インタラクションを仲介するグラブポイントを生成します。この「グラブ
@@ -92,6 +101,11 @@ public class VRWC_WheelInteractable : XRBaseInteractable
     IEnumerator BrakeAssist(IXRSelectInteractor interactor)
     {
         VRWC_XRNodeVelocitySupplier interactorVelocity = interactor.transform.GetComponent<VRWC_XRNodeVelocitySupplier>();
+
+        if (interactorVelocity == null)
+        {
+            yield break; // nullの場合は早期終了
+        }
 
         while (grabPoint)
         {
