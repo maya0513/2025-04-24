@@ -107,6 +107,9 @@ public class VRWC_WheelInteractable : XRBaseInteractable
             yield break; // nullの場合は早期終了
         }
 
+        // XRNodeVelocitySupplierの初期化完了を待機
+        yield return new WaitUntil(() => interactorVelocity.IsInitialized);
+
         while (grabPoint)
         {
             // インタラクターの前後の動きがほぼゼロの場合、ブレーキをかけていると判断

@@ -10,25 +10,36 @@ public class VRWC_XRNodeVelocitySupplier : MonoBehaviour
     XRNode trackedNode;
 
     Vector3 _velocity = Vector3.zero;
+    bool _isInitialized = false;
 
     // アタッチされたトランスフォームの最後に追跡された速度。読み取り専用。
 
     public Vector3 velocity { get => _velocity; }
+    
+    // XRシステムの初期化が完了しているかどうかを示すフラグ。読み取り専用。
+    public bool IsInitialized { get => _isInitialized; }
 
     private void Start()
     {
-        InputDevices.GetDeviceAtXRNode(trackedNode).TryGetFeatureValue(CommonUsages.deviceVelocity, out _velocity);
         StartCoroutine(WaitForXRInitialization());
     }
 
     private IEnumerator WaitForXRInitialization()
     {
         yield return new WaitUntil(() => InputDevices.GetDeviceAtXRNode(trackedNode).isValid);
-        // 速度取得処理
+        
+        // 初期化完了後に速度取得を開始
+        InputDevices.GetDeviceAtXRNode(trackedNode).TryGetFeatureValue(CommonUsages.deviceVelocity, out _velocity);
+        
+        // 初期化完了フラグを設定
+        _isInitialized = true;
     }
 
     void Update()
     {
-        InputDevices.GetDeviceAtXRNode(trackedNode).TryGetFeatureValue(CommonUsages.deviceVelocity, out _velocity);
+        if (_isInitialized)
+        {
+            InputDevices.GetDeviceAtXRNode(trackedNode).TryGetFeatureValue(CommonUsages.deviceVelocity, out _velocity);
+        }
     }
 }
