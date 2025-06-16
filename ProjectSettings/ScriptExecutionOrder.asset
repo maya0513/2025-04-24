@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!47 &1
+MonoManager:
+  m_ObjectHideFlags: 0
+  serializedVersion: 5
+  m_ExecutionOrder:
+  - first: {fileID: 11500000, guid: 0, type: 3}
+    second: -100
+  - first: {fileID: 11500000, guid: 1, type: 3}
+    second: -50
+  - first: {fileID: 11500000, guid: 2, type: 3}
+    second: 0
+  m_TypeMap:
+    0: JustinMajetich.VRWheelchair.VRWC_XRInitializationManager
+    1: JustinMajetich.VRWheelchair.VRWC_XRNodeVelocitySupplier
+    2: JustinMajetich.VRWheelchair.VRWC_WheelInteractable

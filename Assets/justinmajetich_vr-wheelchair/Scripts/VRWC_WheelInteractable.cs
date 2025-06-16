@@ -9,22 +9,27 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 // XRBaseInteractableを継承したVRWC_WheelInteractableは、動的グラブポイント、ブレーキング、自動選択解除を処理する独自の動作を提供します。
 
-public class VRWC_WheelInteractable : XRBaseInteractable
+namespace JustinMajetich.VRWheelchair
+{
+    public class VRWC_WheelInteractable : XRBaseInteractable
 {
     Rigidbody m_Rigidbody;
 
     float wheelRadius;
 
-    bool onSlope = false;
-    [SerializeField] bool hapticsEnabled = true;
+        bool onSlope = false;
+        [SerializeField] bool hapticsEnabled = true;
 
-    [Range(0, 0.5f), Tooltip("インタラクションマネージャーが選択をキャンセルするホイールコライダーからの距離。")]
-    [SerializeField] float deselectionThreshold = 0.25f;
+        [Range(0, 0.5f), Tooltip("インタラクションマネージャーが選択をキャンセルするホイールコライダーからの距離。")]
+        [SerializeField] float deselectionThreshold = 0.25f;
 
-    GameObject grabPoint;
+        [Header("Brake Assist Settings")]
+        [SerializeField] private float brakeAssistTimeout = 15f;
 
-    public Text label1;
-    public Text label2;
+        GameObject grabPoint;
+
+        public Text label1;
+        public Text label2;
 
 
     private void Start()
@@ -98,31 +103,50 @@ public class VRWC_WheelInteractable : XRBaseInteractable
         }
     }
 
-    IEnumerator BrakeAssist(IXRSelectInteractor interactor)
-    {
-        VRWC_XRNodeVelocitySupplier interactorVelocity = interactor.transform.GetComponent<VRWC_XRNodeVelocitySupplier>();
-
-        if (interactorVelocity == null)
+        IEnumerator BrakeAssist(IXRSelectInteractor interactor)
         {
-            yield break; // nullの場合は早期終了
-        }
+            VRWC_XRNodeVelocitySupplier interactorVelocity = interactor.transform.GetComponent<VRWC_XRNodeVelocitySupplier>();
 
-        // XRNodeVelocitySupplierの初期化完了を待機
-        yield return new WaitUntil(() => interactorVelocity.IsInitialized);
-
-        while (grabPoint)
-        {
-            // インタラクターの前後の動きがほぼゼロの場合、ブレーキをかけていると判断
-            if (interactorVelocity.velocity.z < 0.05f && interactorVelocity.velocity.z > -0.05f)
+            if (interactorVelocity == null)
             {
-                m_Rigidbody.AddTorque(-m_Rigidbody.angularVelocity.normalized * 25f);
-
-                SpawnGrabPoint(interactor);
+                Debug.LogWarning("No VRWC_XRNodeVelocitySupplier found on interactor - brake assist disabled");
+                yield break;
             }
 
-            yield return new WaitForFixedUpdate();
+            // タイムアウト付きの初期化待機
+            float startTime = Time.time;
+            yield return new WaitUntil(() => 
+            {
+                float elapsed = Time.time - startTime;
+                if (elapsed >= brakeAssistTimeout)
+                {
+                    Debug.LogWarning($"VelocitySupplier initialization timeout ({brakeAssistTimeout}s) - proceeding without brake assist");
+                    return true;
+                }
+                return interactorVelocity.IsInitialized;
+            });
+            
+            if (Time.time - startTime >= brakeAssistTimeout)
+            {
+                Debug.LogWarning("Brake assist initialization failed - continuing without brake assist functionality");
+                yield break;
+            }
+
+            Debug.Log("Brake assist initialized successfully");
+
+            while (grabPoint)
+            {
+                // インタラクターの前後の動きがほぼゼロの場合、ブレーキをかけていると判断
+                if (interactorVelocity.velocity.z < 0.05f && interactorVelocity.velocity.z > -0.05f)
+                {
+                    m_Rigidbody.AddTorque(-m_Rigidbody.angularVelocity.normalized * 25f);
+
+                    SpawnGrabPoint(interactor);
+                }
+
+                yield return new WaitForFixedUpdate();
+            }
         }
-    }
 
     IEnumerator MonitorDetachDistance(IXRSelectInteractor interactor)
     {
@@ -247,5 +271,6 @@ public class VRWC_WheelInteractable : XRBaseInteractable
 
             yield return new WaitForSeconds(0.1f);
         }
+    }
     }
 }
